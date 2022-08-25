@@ -3,6 +3,8 @@ import { useQuestionsContext } from '../hooks/useQuestionsContext';
 import { useAuthContext } from '../hooks/useAuthContext'
 import { suggestions } from '../suggestions';
 import { WithContext as ReactTags } from 'react-tag-input';
+import FileBase from 'react-file-base64'
+
 // import {
 //     AccordionWithHeader,
 //     AccordionNode,
@@ -30,6 +32,7 @@ const AskQuestion = () => {
     const { user } = useAuthContext()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+    const [selectedImage, setSelectedImage] = useState('')
     const [tags, setTags] = useState([])
     const [error, setError] = useState(null)
     const [emptyFields, setEmptyFields] = useState([])
@@ -54,7 +57,7 @@ const AskQuestion = () => {
             setError('You must be logged In')
             return
         }
-        const question = { title, description, tags }
+        const question = { title, description, tags, selectedImage }
         const resp = await fetch('/api/questions', {
             method: 'POST',
             body: JSON.stringify(question),
@@ -71,11 +74,12 @@ const AskQuestion = () => {
         if (resp.ok) {
             setTitle('')
             setDescription('')
+            setSelectedImage('')
             setTags([])
             setError(null)
             setEmptyFields([])
             console.log('new question added', questionJson)
-            // console.log(dispatch({ type: 'ASK_QUESTION', payload: questionJson }))
+            dispatch({ type: 'ASK_QUESTION', payload: questionJson })
         }
     }
 
@@ -87,7 +91,7 @@ const AskQuestion = () => {
                     <form onSubmit={handleSubmit}>
                         <div className='fillquestion'>
                             <label>Title</label>
-                            <span>Be specific and imagine you're asking a question to another person</span>
+                            <p>Be specific and imagine you're asking a question to another person</p>
                             <input
                                 type='text'
                                 placeholder='e.g. is there an R function for finding the index of an element in a vector?'
@@ -96,7 +100,7 @@ const AskQuestion = () => {
                                 className={emptyFields.includes('title') ? 'error' : ''}
                             />
                             <label>Body</label>
-                            <span>include all the information someone would need to answer your question</span>
+                            <p>include all the information someone would need to answer your question</p>
                             <textarea
                                 rows='12'
                                 onChange={e => setDescription(e.target.value)}
@@ -104,8 +108,13 @@ const AskQuestion = () => {
                                 className={emptyFields.includes('description') ? 'error' : ''}
                             >
                             </textarea>
+                            <FileBase
+                                type='file'
+                                multiple={false}
+                                onDone={({ base64 }) => setSelectedImage(base64)}
+                            />
                             <label>Tags</label>
-                            <span>Add up to 5 tags to describe what your question is about</span>
+                            <p>Add up to 5 tags to describe what your question is about</p>
                             <ReactTags
                                 tags={tags}
                                 suggestions={suggestionTag}

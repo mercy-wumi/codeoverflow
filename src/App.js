@@ -5,6 +5,7 @@ import AskQuestion from './pages/AskQuestion';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import QuestionDetails from './pages/QuestionDetails';
 
 function App() {
   const { user } = useAuthContext()
@@ -13,10 +14,11 @@ function App() {
       <Navbar />
       <div>
         <Routes>
-          <Route exact path='/' element={user ? <Dashboard /> : <Navigate to='/login' />} />
-          <Route exact path='/login' element={!user ? <Login /> : <Navigate to='/' />} />
-          <Route exact path='/signup' element={!user ? <Signup /> : <Navigate to='/' />} />
-          <Route exact path='/askquestion' element={user ? <AskQuestion /> : <Navigate to='/login' />} />
+          <Route path='/' element={user ? <Dashboard /> : <Navigate to='/login' />} />
+          <Route path='/login' element={!user ? <Login /> : <Navigate to='/' />} />
+          <Route path='/signup' element={!user ? <Signup /> : <Navigate to='/' />} />
+          <Route path='/askquestion' element={user && <AskQuestion />} />
+          <Route path='/:id' element={user && <QuestionDetails />} />
         </Routes>
       </div>
     </BrowserRouter>

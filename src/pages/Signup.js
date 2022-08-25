@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import { useSignup } from '../hooks/useSignup'
+import { BiHide, BiShow } from 'react-icons/bi'
 
 const Signup = () => {
 
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [showPass, setShowPass] = useState(false)
+
     const { signup, isLoading, error } = useSignup()
 
     const handleSubmit = async (e) => {
@@ -29,9 +32,11 @@ const Signup = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
             />
-            <label>Password:</label>
+            <label className='showpass'>Password:
+                {showPass ? <BiShow onClick={() => setShowPass(!showPass)} /> : <BiHide onClick={() => setShowPass(!showPass)} />}
+            </label>
             <input
-                type='password'
+                type={showPass ? 'text' : 'password'}
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
             />

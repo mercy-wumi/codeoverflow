@@ -20,6 +20,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #fff;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 code {
@@ -30,12 +32,18 @@ code {
 /* header styles */
 
 header {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  padding: 0 50px;
+  position: fixed;
+  z-index: 50;
   background: #f2f2f2;
 }
 
 header .container {
+  height: 50px;
   max-width: 1400px;
-  padding: 3px 50px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -74,6 +82,12 @@ header .container {
 
 .user-details {
   display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.user-details>span {
+  margin-right: 10px;
 }
 
 .btn {
@@ -107,7 +121,7 @@ a {
 .login-form,
 .signup-form {
   max-width: 400px;
-  margin: 50px auto;
+  margin: 150px auto;
   padding: 20px;
   border-radius: 5px;
   background: #f1f1f1;
@@ -137,6 +151,11 @@ input {
   margin-top: 20px;
 }
 
+.showpass {
+  display: flex;
+  align-items: center;
+}
+
 button {
   border-radius: 5px;
   cursor: pointer;
@@ -149,14 +168,16 @@ button {
 /* Dashboard styles */
 
 .row {
+  margin-top: 50px;
   width: 100%;
   display: flex;
-  padding-top: 20px;
+  /* padding-top: 20px; */
   padding-right: 70px;
 }
 
 /* Ask question styles */
 .askquestionContainer {
+  margin-top: 50px;
   padding: 3em 4em;
 }
 
@@ -172,8 +193,6 @@ button {
   padding-top: 2em;
 }
 
-.question {}
-
 .question form .fillquestion {
   background: #fff;
   border-radius: 3px;
@@ -185,8 +204,7 @@ button {
 
 .fillquestion input,
 label,
-textarea,
-span {
+textarea {
   display: block;
   width: 100%;
 }
@@ -201,7 +219,7 @@ textarea {
   font-weight: 600;
 }
 
-.fillquestion span {
+.fillquestion p {
   font-size: 12px;
   padding: 5px 0;
 }
@@ -279,12 +297,15 @@ div.error {
   height: 100vh;
   z-index: 20;
   background: #fff;
-  padding-top: 30px;
   padding-left: 30px;
   color: gray;
   border: 0;
   font-size: 14px;
   border-right: 1px solid #ddd;
+}
+
+.sidebar nav {
+  padding-top: 30px;
 }
 
 .sidebar li {
@@ -334,12 +355,14 @@ div.error {
   display: grid;
   grid-template-columns: 4fr 2fr;
   margin-left: 200px;
-  width: 100%;
+  margin-top: 20px;
+  /* width: 100%; */
 }
 
 .top-header {
-  padding: 20px;
-  padding-top: 0px;
+  margin: 20px;
+  margin-top: 0;
+  padding-bottom: 10px;
 }
 
 .heading {
@@ -399,6 +422,8 @@ div.error {
 }
 
 .list-head {
+  display: block;
+  width: 100%;
   font-weight: 600;
   padding: 10px;
   background: hwb(47deg 74% 6%);
@@ -411,11 +436,128 @@ div.error {
 
 .list {
   display: flex;
-  justify-content: center;
   font-size: 14px;
   padding: 10px;
 }
 
 .list span {
   margin-left: 10px;
+}
+
+.time {
+  display: flex;
+}
+
+.time>span {
+  margin-left: 10px
+}
+
+/* question details page styles */
+.details {
+  width: 100%;
+  margin-left: 200px;
+}
+
+.detail-main {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4fr 2fr;
+  margin-top: 20px;
+  padding: 0 20px;
+}
+
+.border {
+  margin-top: 20px;
+  border-bottom: 2px solid #ddd;
+}
+
+/* working on responsiveness */
+
+/* navbar */
+
+@media (max-width:1023px) {
+  .navbar ul {
+    display: none;
+  }
+}
+
+@media (max-width:767px) {
+  .navbar form {
+    display: none;
+  }
+
+  .user-details,
+  .navbar .btn {
+    margin-left: auto;
+  }
+
+  .logo {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width:424px) {
+  .logo {
+    font-size: 1em;
+  }
+
+  header {
+    padding: 0 20px;
+  }
+}
+
+/* ask question */
+@media (max-width:767px) {
+  .askquestionContainer {
+    margin-top: 50px;
+    padding: 3em 1.5em;
+  }
+
+  .askquestion {
+    display: block;
+  }
+
+  .accordion {
+    display: none;
+  }
+}
+
+/* dashboard */
+@media (max-width:1023px) {
+  .row {
+    padding-right: 20px;
+  }
+
+  .main,
+  .detail-main {
+    display: block;
+  }
+
+  .right {
+    display: none;
+  }
+
+  .questions-link {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    display: none;
+  }
+
+  .main,
+  .details {
+    margin-left: 0px;
+  }
+
+  .row {
+    padding-right: 0px;
+  }
+
+  .heading h4 {
+    font-weight: 500;
+    font-size: 20px;
+  }
 }
