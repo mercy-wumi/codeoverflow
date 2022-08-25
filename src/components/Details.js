@@ -37,6 +37,7 @@ const Details = ({ question, id }) => {
         const questnAnswerJson = await resp.json()
         if (!resp.ok) {
             setError(questnAnswerJson.error)
+            console.log(error)
         }
         if (resp.ok) {
             console.log('answer submitted', questnAnswerJson)
