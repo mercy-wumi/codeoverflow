@@ -5,13 +5,6 @@ import { suggestions } from '../suggestions';
 import { WithContext as ReactTags } from 'react-tag-input';
 import FileBase from 'react-file-base64'
 
-// import {
-//     AccordionWithHeader,
-//     AccordionNode,
-//     AccordionHeader,
-//     AccordionPanel
-// } from 'react-accordion-with-header';
-
 const suggestionTag = suggestions.map(country => {
     return {
         id: country,
@@ -136,20 +129,6 @@ const AskQuestion = () => {
                     <div className='accordion-text'>
                         <p>The community is here to help you with specific coding algorithm, or language problems.</p>
                         <p>Avoid asking opinion-based questions.</p>
-                        {/* <AccordionWithHeader
-                        // active={[0]}
-                        >
-                            <AccordionNode>
-                                <AccordionHeader className='accordionHeader'>
-                                    <span>Summarize the problem</span>
-                                </AccordionHeader>
-                                <AccordionPanel>
-                                    <ul>
-                                        <li>include details about your goal</li>
-                                    </ul>
-                                </AccordionPanel>
-                            </AccordionNode>
-                        </AccordionWithHeader> */}
                     </div>
                 </div>
             </div>
