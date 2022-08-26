@@ -1,23 +1,23 @@
 import { useState } from 'react'
 import { useQuestionsContext } from '../hooks/useQuestionsContext';
 import { useAuthContext } from '../hooks/useAuthContext'
-import { suggestions } from '../suggestions';
-import { WithContext as ReactTags } from 'react-tag-input';
+// import { suggestions } from '../suggestions';
+// import { WithContext as ReactTags } from 'react-tag-input';
 import FileBase from 'react-file-base64'
 
-const suggestionTag = suggestions.map(country => {
-    return {
-        id: country,
-        text: country
-    };
-});
+// const suggestionTag = suggestions.map(country => {
+//     return {
+//         id: country,
+//         text: country
+//     };
+// });
 
-const KeyCodes = {
-    comma: 188,
-    enter: 13
-};
+// const KeyCodes = {
+//     comma: 188,
+//     enter: 13
+// };
 
-const delimiters = [KeyCodes.comma, KeyCodes.enter];
+// const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 
 const AskQuestion = () => {
@@ -26,22 +26,22 @@ const AskQuestion = () => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [selectedImage, setSelectedImage] = useState('')
-    const [tags, setTags] = useState([])
+    // const [tags, setTags] = useState([])
     const [error, setError] = useState(null)
     const [emptyFields, setEmptyFields] = useState([])
 
-    const handleDelete = i => {
-        setTags(tags.filter((tag, index) => index !== i));
-    };
+    // const handleDelete = i => {
+    //     setTags(tags.filter((tag, index) => index !== i));
+    // };
 
-    const handleAddition = tag => {
-        setTags([...tags, tag]);
-        console.log(tags)
-    };
+    // const handleAddition = tag => {
+    //     setTags([...tags, tag]);
+    //     console.log(tags)
+    // };
 
-    const handleTagClick = index => {
-        console.log('The tag at index ' + index + ' was clicked');
-    };
+    // const handleTagClick = index => {
+    //     console.log('The tag at index ' + index + ' was clicked');
+    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -50,7 +50,7 @@ const AskQuestion = () => {
             setError('You must be logged In')
             return
         }
-        const question = { title, description, tags, selectedImage }
+        const question = { title, description, selectedImage }
         const resp = await fetch('/api/questions', {
             method: 'POST',
             body: JSON.stringify(question),
@@ -68,7 +68,7 @@ const AskQuestion = () => {
             setTitle('')
             setDescription('')
             setSelectedImage('')
-            setTags([])
+            // setTags([])
             setError(null)
             setEmptyFields([])
             console.log('new question added', questionJson)
@@ -106,9 +106,9 @@ const AskQuestion = () => {
                                 multiple={false}
                                 onDone={({ base64 }) => setSelectedImage(base64)}
                             />
-                            <label>Tags</label>
-                            <p>Add up to 5 tags to describe what your question is about</p>
-                            <ReactTags
+                            {/* <label>Tags</label>
+                            <p>Add up to 5 tags to describe what your question is about</p> */}
+                            {/* <ReactTags
                                 tags={tags}
                                 suggestions={suggestionTag}
                                 delimiters={delimiters}
@@ -118,7 +118,7 @@ const AskQuestion = () => {
                                 inputFieldPosition="top"
                                 autocomplete
                                 className={emptyFields.includes('tags') ? 'error' : ''}
-                            />
+                            /> */}
                         </div>
                         <button className='button'>Review your question</button>
                         {error && <div className='error'>{error}</div>}
