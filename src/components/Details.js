@@ -67,7 +67,7 @@ const Details = ({ question, id }) => {
             <div className='detail-main'>
                 <div className='left'>
                     <span>{question.description}</span>
-                    <img src={question.selectedImage} className='question-img' />
+                    <img src={question.selectedImage} className='question-img' alt='question-pix' />
                     <div className='tags-sec'>
                         <div>
                             {question.tags.map((tag, index) => (

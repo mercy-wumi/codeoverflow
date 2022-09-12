@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { useAuthContext } from '../hooks/useAuthContext'
+// import { useAuthContext } from '../hooks/useAuthContext'
 import { formatDistanceToNow } from 'date-fns'
 import RightBar from './RightBar'
 
@@ -8,7 +8,7 @@ import RightBar from './RightBar'
 const Main = ({ questions, loading }) => {
     const navigate = useNavigate()
 
-    const { user } = useAuthContext()
+    // const { user } = useAuthContext()
 
     const handleAskQuestion = () => {
         navigate('/askquestion', { replace: true })
