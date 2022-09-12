@@ -5,7 +5,7 @@ import { formatDistanceToNow } from 'date-fns'
 import RightBar from './RightBar'
 
 
-const Main = ({ questions }) => {
+const Main = ({ questions, loading }) => {
     const navigate = useNavigate()
 
     const { user } = useAuthContext()
@@ -15,37 +15,38 @@ const Main = ({ questions }) => {
     }
 
     return (
-        <div className='main'>
-            <div className='left'>
-                <div className='top-header'>
-                    <div className='heading'>
-                        <h4>All Questions</h4>
-                        <button onClick={handleAskQuestion}>Ask Question</button>
+        loading ? <span className='loading'>Loading...</span> :
+            <div className='main'>
+                <div className='left'>
+                    <div className='top-header'>
+                        <div className='heading'>
+                            <h4>All Questions</h4>
+                            <button onClick={handleAskQuestion}>Ask Question</button>
+                        </div>
+                        <span>{questions.length} questions</span>
                     </div>
-                    <span>{questions.length} questions</span>
-                </div>
-                <div>
-                    {questions && questions.map((question, index) => (
-                        <div key={index} className='questions-link'>
-                            <Link to={`/${question._id}`}>{question.title}</Link>
-                            <p>{question.description}</p>
-                            <div className='tags-sec'>
-                                <div>
-                                    {question.tags.map((tag, index) => (
-                                        <button key={index} className='tags'>{tag.text}</button>
-                                    ))}
-                                </div>
-                                <div className='time'>
-                                    <span>{user.username}</span>
-                                    <span>{formatDistanceToNow(new Date(question.createdAt), { addSuffix: true })}</span>
+                    <div>
+                        {questions && questions.map((question, index) => (
+                            <div key={index} className='questions-link'>
+                                <Link to={`/${question._id}`}>{question.title}</Link>
+                                <p>{question.description.length > 200 ? question.description.slice(0, 200) + ' ...' : question.description}</p>
+                                <div className='tags-sec'>
+                                    <div>
+                                        {question.tags.map((tag, index) => (
+                                            <button key={index} className='tags'>{tag}</button>
+                                        ))}
+                                    </div>
+                                    <div className='time'>
+                                        <span>{question.postedBy.username}</span>
+                                        <span>{formatDistanceToNow(new Date(question.createdAt), { addSuffix: true })}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
+                <RightBar />
             </div>
-            <RightBar />
-        </div>
     )
 }
 

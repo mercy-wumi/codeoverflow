@@ -17,8 +17,8 @@ function App() {
           <Route path='/' element={user ? <Dashboard /> : <Navigate to='/login' />} />
           <Route path='/login' element={!user ? <Login /> : <Navigate to='/' />} />
           <Route path='/signup' element={!user ? <Signup /> : <Navigate to='/' />} />
-          <Route path='/askquestion' element={user && <AskQuestion />} />
-          <Route path='/:id' element={user && <QuestionDetails />} />
+          <Route path='/askquestion' element={<AskQuestion />} />
+          <Route path='/:id' element={<QuestionDetails />} />
         </Routes>
       </div>
     </BrowserRouter>

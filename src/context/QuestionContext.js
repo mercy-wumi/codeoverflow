@@ -19,15 +19,18 @@ export const questionsReducer = (state, action) => {
                 question: action.payload
             }
         case 'POST_ANSWER':
+            // return {
+            //     ...state,
+            //     questions: state.questions.map((question) => {
+            //         if (question._id === action.payload._id) {
+            //             return action.payload;
+            //         }
+            //         return question;
+            //     }),
+            // };
             return {
                 ...state,
-                questions: state.questiona.map(question => {
-                    // testing for the question that just received answer
-                    if (question._id === action.payload._id) return action.payload
-
-                    // return all other questions
-                    return question;
-                })
+                question: action.payload
             }
         default:
             return state
@@ -36,7 +39,7 @@ export const questionsReducer = (state, action) => {
 
 export const QuestionsContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(questionsReducer, {
-        questions: null,
+        questions: [],
         question: null
     })
 

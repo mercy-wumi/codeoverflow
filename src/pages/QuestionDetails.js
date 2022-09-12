@@ -12,7 +12,7 @@ const QuestionDetails = () => {
 
     useEffect(() => {
         const fetchQuestion = async (id) => {
-            const resp = await fetch('https://codeoverflow-app.herokuapp.com/api/questions/' + id, {
+            const resp = await fetch('/api/questions/' + id, {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }

@@ -1,74 +1,95 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import RightBar from './RightBar'
+import { formatDistanceToNow } from 'date-fns'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useQuestionsContext } from '../hooks/useQuestionsContext'
 
 
 const Details = ({ question, id }) => {
     const [answer, setAnswer] = useState('')
-    const [answers, setAnswers] = useState(question?.answers)
+    // const [answers, setAnswers] = useState(question?.answers)
     const [error, setError] = useState(null)
 
     const { dispatch } = useQuestionsContext()
     const { user } = useAuthContext()
 
     const navigate = useNavigate()
+
     const handleAskQuestion = () => {
         navigate('/askquestion', { replace: true })
     }
+    // console.log(answer)
 
-    const postAnswer = async (e) => {
-        e.preventDefault()
+    const postAnswer = async (text, postId) => {
+        // e.preventDefault()
         if (!user) {
             setError('You must be logged In')
             return
         }
-        console.log(user)
-        const questnAnswer = `${user.username}: ${answer}`
+        // const questnAnswer = `${user.username}: ${answer}`
         const resp = await fetch(`/api/questions/${id}/postAnswer`, {
             method: 'POST',
-            body: JSON.stringify(questnAnswer),
+            body: JSON.stringify({
+                postId,
+                text
+            }),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${user.token}`
             }
         })
-        const questnAnswerJson = await resp.json()
+        const answerJson = await resp.json()
+
+
         if (!resp.ok) {
-            setError(questnAnswerJson.error)
+            setError(answerJson.error)
             console.log(error)
         }
         if (resp.ok) {
-            console.log('answer submitted', questnAnswerJson)
-            dispatch({ type: 'POST_ANSWER', payload: questnAnswerJson })
-            return questnAnswerJson.answers
+            console.log('answer submitted', answerJson)
+            console.log(dispatch({ type: 'POST_ANSWER', payload: answerJson }))
+            // return answerJson.answers
+            setAnswer('')
+            setError(null)
+            // setAnswers(answerJson)
         }
-        setAnswer('')
-        setError(null)
-        setAnswers(questnAnswerJson)
     }
+
     return (
         <div className='details'>
             <div className='top-header border'>
                 <div className='heading'>
-                    <h4>How to get current user data from firestore?</h4>
+                    <h4>{question.title}</h4>
                     <button onClick={handleAskQuestion}>Ask Question</button>
                 </div>
-                <span>4 questions</span>
             </div>
             <div className='detail-main'>
                 <div className='left'>
-                    {question.description}
-                    {answers && answers.map(answer => {
-                        return (
-                            <p>
-                                <strong>{answer.split(': ')[0]}</strong>
-                                {answer.split(':')[1]}
-                            </p>
+                    <span>{question.description}</span>
+                    <img src={question.selectedImage} className='question-img' />
+                    <div className='tags-sec'>
+                        <div>
+                            {question.tags.map((tag, index) => (
+                                <button key={index} className='tags'>{tag}</button>
+                            ))}
+                        </div>
+                        <div className='time'>
+                            <span>{question.postedBy.username}</span>
+                            <span>{formatDistanceToNow(new Date(question.createdAt), { addSuffix: true })}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p style={{ fontWeight: '600' }}>{question.answers.length} Answer</p>
+                        {question.answers.map(answer => (
+                            <div key={answer._id}>
+                                <span>{answer.text}</span>
+                                <span className='answerBy'>answered by: {answer.postedBy.username}</span>
+                            </div>
                         )
-                    })}
-                    <form onSubmit={postAnswer}>
+                        )}
+                    </div>
+                    <form onSubmit={(e) => { e.preventDefault(); postAnswer(answer, id) }}>
                         <div className='fillquestion'>
                             <label>Your Answer</label>
                             <textarea

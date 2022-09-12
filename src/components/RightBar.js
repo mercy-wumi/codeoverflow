@@ -25,19 +25,19 @@ const RightBar = () => {
                         <span className='list-head'>Articles Written</span>
                         <ul>
                             <li>
-                                <Link to='/' className='list'>
+                                <Link to='https://dev.to/m_adams1909/data-fetching-with-axios-in-react-made-simple-2jei' className='list'>
                                     <MdArticle />
                                     <span>Fectching data using axios in a react application</span>
                                 </Link>
                             </li>
                             <li>
-                                <Link to='/' className='list'>
+                                <Link to='https://mercyadams.hashnode.dev/getting-started-with-tailwind-css' className='list'>
                                     <MdArticle />
                                     <span>Beginners guide to tailwindcss css with practical application example</span>
                                 </Link>
                             </li>
                             <li>
-                                <Link to='/' className='list'>
+                                <Link to='https://dev.to/m_adams1909/git-for-beginners-4857' className='list'>
                                     <MdArticle />
                                     <span>Git and github tutorial for beginners</span>
                                 </Link>
