@@ -28,7 +28,7 @@ const Details = ({ question, id }) => {
             return
         }
         // const questnAnswer = `${user.username}: ${answer}`
-        const resp = await fetch(`/api/questions/${id}/postAnswer`, {
+        const resp = await fetch(`https://codeoverflow-app.herokuapp.com/api/questions/${id}/postAnswer`, {
             method: 'POST',
             body: JSON.stringify({
                 postId,

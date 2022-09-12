@@ -22,7 +22,7 @@ const AskQuestion = () => {
             return
         }
         const question = { title, description, tags, selectedImage }
-        const resp = await fetch('/api/questions', {
+        const resp = await fetch('https://codeoverflow-app.herokuapp.com/api/questions', {
             method: 'POST',
             body: JSON.stringify(question),
             headers: {

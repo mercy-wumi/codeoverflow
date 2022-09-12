@@ -10,7 +10,7 @@ export const useSignup = () => {
         setError(null)
         setIsLoading(true)
 
-        const resp = await fetch('/api/user/signup', {
+        const resp = await fetch('https://codeoverflow-app.herokuapp.com/api/user/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, email, password })
