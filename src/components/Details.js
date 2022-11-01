@@ -27,6 +27,11 @@ const Details = ({ question, id }) => {
             setError('You must be logged In')
             return
         }
+        if (answer === '') {
+            alert('enter your answer')
+            return
+        }
+
         // const questnAnswer = `${user.username}: ${answer}`
         const resp = await fetch(`https://codeoverflow-app.herokuapp.com/api/questions/${id}/postAnswer`, {
             method: 'POST',
@@ -48,10 +53,11 @@ const Details = ({ question, id }) => {
         }
         if (resp.ok) {
             console.log('answer submitted', answerJson)
-            console.log(dispatch({ type: 'POST_ANSWER', payload: answerJson }))
-            // return answerJson.answers
             setAnswer('')
             setError(null)
+            console.log(dispatch({ type: 'POST_ANSWER', payload: answerJson }))
+            // return answerJson.answers
+
             // setAnswers(answerJson)
         }
     }
@@ -67,7 +73,7 @@ const Details = ({ question, id }) => {
             <div className='detail-main'>
                 <div className='left'>
                     <span>{question.description}</span>
-                    <img src={question.selectedImage} className='question-img' alt='question-pix' />
+                    {question.selectedImage && <img src={question.selectedImage} className='question-img' alt='question-pix' />}
                     <div className='tags-sec'>
                         <div>
                             {question.tags.map((tag, index) => (
@@ -79,12 +85,13 @@ const Details = ({ question, id }) => {
                             <span>{formatDistanceToNow(new Date(question.createdAt), { addSuffix: true })}</span>
                         </div>
                     </div>
-                    <div>
+                    <div className='postAnswer'>
                         <p style={{ fontWeight: '600' }}>{question.answers.length} Answer</p>
                         {question.answers.map(answer => (
                             <div key={answer._id}>
                                 <span>{answer.text}</span>
-                                <span className='answerBy'>answered by: {answer.postedBy.username}</span>
+                                {/* <span className='answerBy'>answered by: {answer.postedBy.username}</span> */}
+                                <span className='answerBy'>Answer Submitted</span>
                             </div>
                         )
                         )}

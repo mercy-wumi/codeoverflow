@@ -502,6 +502,10 @@ div.error {
   margin: 20px 0;
 }
 
+.postAnswer {
+  margin-top: 30px;
+}
+
 .answerBy {
   display: flex;
   justify-content: flex-end;

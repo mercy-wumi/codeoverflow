@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { FaGlobeAmericas } from 'react-icons/fa'
 
 const Sidebar = () => {
-    const [active, setActive] = useState('tags')
+    const [active, setActive] = useState('questions')
     return (
         <div className='sidebar'>
             <nav>

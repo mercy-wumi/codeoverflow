@@ -28,7 +28,7 @@ const TagsInput = ({ tags, setTags }) => {
                     <span className="close" onClick={() => removeTag(index)}>&times;</span>
                 </div>
             ))}
-            <input onKeyDown={handleKeyDown} type="text" className="tags-input" placeholder="enter atleast one tag" />
+            <input onKeyDown={handleKeyDown} type="text" className="tags-input" placeholder="enter atleast one tag and press enter to add tag" />
         </div>
     )
 }
