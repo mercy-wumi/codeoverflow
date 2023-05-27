@@ -3,9 +3,11 @@ import { useQuestionsContext } from '../hooks/useQuestionsContext'
 import Sidebar from '../components/Sidebar'
 import Main from '../components/Main'
 import { useAuthContext } from '../hooks/useAuthContext'
+import AskQuestion from './AskQuestion'
 
 
 const Dashboard = () => {
+
     const { questions, dispatch } = useQuestionsContext()
     const { user } = useAuthContext()
     const [loading, setLoading] = useState(true)
@@ -34,10 +36,14 @@ const Dashboard = () => {
 
 
     return (
-        <div className='row'>
-            <Sidebar />
-            {questions && <Main questions={questions} loading={loading} />}
-        </div>
+        <>
+            {questions.length === 0 ? <AskQuestion /> :
+                <div className='row'>
+                    <Sidebar />
+                    <Main questions={questions} loading={loading} />
+                </div>
+            }
+        </>
     )
 }
 

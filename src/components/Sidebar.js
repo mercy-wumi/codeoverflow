@@ -4,36 +4,54 @@ import { FaGlobeAmericas } from 'react-icons/fa'
 
 const Sidebar = () => {
     const [active, setActive] = useState('questions')
+    // const [clicked, setClicked] = useState(false)
+
+
+    // const menu = [
+    //     {
+    //         id: 1,
+    //         name: 'Questions'
+    //     },
+    //     {
+    //         id: 2,
+    //         name: 'Tags'
+    //     },
+    //     {
+    //         id: 3,
+    //         name: 'Users'
+    //     },
+    //     {
+    //         id: 4,
+    //         name: 'Companies'
+    //     },
+    // ]
+
+    const handleClick = (activeMenu) => {
+        setActive(activeMenu)
+    }
+
     return (
         <div className='sidebar'>
             <nav>
                 <div>
-                    <span>Public</span>
+                    <span className='public'>Public</span>
                     <ul>
-                        <li className={active === 'questions' ? 'active' : 'move-left'} onClick={() => setActive('questions')}>
-                            <Link to='/'>
-                                <FaGlobeAmericas className={active === 'questions' ? 'icons' : 'hide'} />
+                        <Link to='/'>
+                            <li onClick={() => handleClick('questions')} className={active === 'questions' ? 'active' : 'questnMenu'}>
+                                <FaGlobeAmericas className='icons' />
                                 Questions
-                            </Link>
-                        </li>
-                        <li className={active === 'tags' ? 'active' : 'move-left'} onClick={() => setActive('tags')}>
-                            <Link to='/'>
-                                <FaGlobeAmericas className={active === 'tags' ? 'icons' : 'hide'} />
-                                Tags
-                            </Link>
-                        </li>
-                        <li className={active === 'users' ? 'active' : 'move-left'} onClick={() => setActive('users')}>
-                            <Link to='/'>
-                                <FaGlobeAmericas className={active === 'users' ? 'icons' : 'hide'} />
-                                Users
-                            </Link>
-                        </li>
-                        <li className={active === 'companies' ? 'active' : 'move-left'} onClick={() => setActive('companies')}>
-                            <Link to='/'>
-                                <FaGlobeAmericas className={active === 'companies' ? 'icons' : 'hide'} />
-                                Companies
-                            </Link>
-                        </li>
+                            </li>
+                        </Link>
+                        <Link to='/tags'>
+                            <li className={active === 'tags' ? 'active' : ''} onClick={() => handleClick('tags')}>
+                                <span>Tags</span>
+                            </li></Link>
+                        <Link to='/users'><li className={active === 'users' ? 'active' : ''} onClick={() => handleClick('users')}>
+                            <span>Users</span>
+                        </li></Link>
+                        <Link to='/'><li className={active === 'companies' ? 'active' : ''} onClick={() => handleClick('companies')}>
+                            <span>Companies</span>
+                        </li></Link>
                     </ul>
                 </div>
             </nav>
